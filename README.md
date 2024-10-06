@@ -34,3 +34,13 @@ public class ExampleFactory {
     }
 }
 ```
+4. App run
+
+```java
+@App
+public class Main {
+    public static void main(String[] args) {
+        ApplicationGraph graph = Application.run(Main.class);
+    }
+}
+```

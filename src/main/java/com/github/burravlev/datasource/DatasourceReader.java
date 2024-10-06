@@ -10,21 +10,21 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class DatasourceReader {
-    private static final String PATTERN = ":\\S+";
+    private static final String PATTERN = ":\\w+\\.?\\w+";
     private static final Pattern COMPILED = Pattern.compile(PATTERN);
-    private static final Map<String, String> EXPRESSIONS_BY_TYPES = Map.of(
-        "int", ".setInt(%d, %s)",
-        "java.lang.String", "setString(%d, %s)",
-        "java.lang.Integer", "setInt(%d, %s)",
-        "java.lang.Long", "setLong(%d, %s)",
-        "java.lang.Double", "setDouble(%d, %s)",
-        "java.lang.Boolean", "setBoolean(%d, %s)"
+    private static final Map<String, String> EXPRESSIONS_BY_TYPES = Map.ofEntries(
+        Map.entry("int", "setInt(%d, %s)"),
+        Map.entry("java.lang.Integer", "setInt(%d, %s)"),
+        Map.entry("java.lang.String", "setString(%d, %s)")
     );
 
-    public ParsedStatement parse(String query, List<? extends VariableElement> parameters) {
+    public ParsedStatement parse(String query, TypeMirror returnType, List<? extends VariableElement> parameters) {
         ParsedStatement statement = new ParsedStatement();
         statement.setQuery(parseQuery(query));
         statement.setParams(parseParams(query, parameters));
+        if (!returnType.toString().equals("void")) {
+            statement.setReturnType(parseReturnType(statement.getQuery(), returnType));
+        }
         return statement;
     }
 
@@ -48,6 +48,19 @@ public class DatasourceReader {
             QueryParam queryParam = new QueryParam(EXPRESSIONS_BY_TYPES.get(type)
                 .formatted(index++, paramName));
             result.add(queryParam);
+        }
+        return result;
+    }
+
+    private Map<String, String> parseReturnType(String query, TypeMirror returnType) {
+        String[] split = query.split("[\\s,]+");
+        Map<String, String> parsed = RelationParser.fromResultSet(returnType);
+        Map<String, String> result = new HashMap<>();
+        for (String val : split) {
+            String exp = parsed.get(val);
+            if (exp != null) {
+                result.put(val, String.format(exp, val));
+            }
         }
         return result;
     }

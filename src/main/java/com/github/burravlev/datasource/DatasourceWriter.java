@@ -1,7 +1,9 @@
 package com.github.burravlev.datasource;
 
 import com.github.burravlev.annotation.Query;
+import com.github.burravlev.context.ClassNameParser;
 import com.github.burravlev.util.Assert;
+import com.github.burravlev.util.StringUtils;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeName;
@@ -15,6 +17,8 @@ import javax.lang.model.type.TypeMirror;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -53,7 +57,7 @@ abstract class DatasourceWriter {
         Query query = method.getAnnotation(Query.class);
         Assert.nonNull(query, "All @Repository repository methods should be marked with @Query.");
         DatasourceReader reader = new DatasourceReader();
-        ParsedStatement statement = reader.parse(query.value(), method.getParameters());
+        ParsedStatement statement = reader.parse(query.value(), method.getReturnType(), method.getParameters());
         MethodSpec.Builder builder = MethodSpec.overriding(method)
             .addCode("try ($T connection = $T.getConnection()) {\n",
                 Connection.class, ConnectionFactory.class);
@@ -63,12 +67,26 @@ abstract class DatasourceWriter {
         for (QueryParam expression : found) {
             builder.addCode("    ps.$L;\n", expression.expression());
         }
-        builder.addCode("    ps.execute();\n");
+        Map<String, String> returnFields = statement.getReturnType();
+        if (returnFields != null) {
+            builder.addCode("    $T resultSet = ps.executeQuery();\n", ResultSet.class);
+            builder.addCode("    var result = new $T();\n", ClassNameParser.parse(method.getReturnType().toString()));
+            for (Map.Entry<String, String> exp : returnFields.entrySet()) {
+                String camel = StringUtils.snakeToCamel(exp.getKey());
+                String setter = "set" + Character.toUpperCase(camel.charAt(0)) + camel.substring(1);
+                builder.addCode("    result.$L(resultSet$L);\n", setter, exp.getValue());
+            }
+        } else {
+            builder.addCode("    ps.execute();\n");
+        }
+        if (returnFields != null) {
+            builder.addCode("    return result;\n");
+        }
         builder.addCode("""
             } catch ($T e) {
                 throw new $T(e);
             }
-            """, Exception.class, IllegalStateException.class);
+            """, SQLException.class, IllegalStateException.class);
         return builder.build();
     }
 

@@ -1,25 +1,16 @@
 package com.github.burravlev.datasource;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
+@Getter
+@Setter
 public class ParsedStatement {
+    private Map<String, String> returnType;
     private String query;
-    List<QueryParam> params = new ArrayList<>();
-
-    public String getQuery() {
-        return query;
-    }
-
-    public void setQuery(String query) {
-        this.query = query;
-    }
-
-    public List<QueryParam> getParams() {
-        return params;
-    }
-
-    public void setParams(List<QueryParam> queryParam) {
-        this.params = queryParam;
-    }
+    private List<QueryParam> params = new ArrayList<>();
 }

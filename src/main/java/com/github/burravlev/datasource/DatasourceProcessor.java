@@ -1,5 +1,6 @@
 package com.github.burravlev.datasource;
 
+import com.github.burravlev.annotation.Relation;
 import com.github.burravlev.annotation.Repository;
 import com.github.burravlev.context.BeanDefinition;
 import com.github.burravlev.context.GeneratedBeanDefinition;
@@ -19,6 +20,7 @@ public class DatasourceProcessor {
     }
 
     public List<BeanDefinition> process() {
+        RelationLoader.load(roundEnv.getElementsAnnotatedWith(Relation.class));
         List<DatasourceDefinition> definitions = DatasourceLoader.extract(roundEnv.getElementsAnnotatedWith(Repository.class));
         DatasourceWriter.write(processingEnv.getFiler(), definitions);
         return definitions.stream().map(def -> new GeneratedBeanDefinition(
