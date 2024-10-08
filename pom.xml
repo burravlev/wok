@@ -87,8 +87,8 @@
                     <outputDirectory>${project.build.directory}/${branch-name}</outputDirectory>
                     <branch>refs/heads/${branch-name}</branch>
                     <includes><include>**/*</include></includes>
-                    <repositoryName>NewLibrary</repositoryName>
-                    <repositoryOwner>alexbarchuk</repositoryOwner>
+                    <repositoryName>${repository-name}</repositoryName>
+                    <repositoryOwner>${repository-owner}</repositoryOwner>
                 </configuration>
                 <executions>
                     <execution>
