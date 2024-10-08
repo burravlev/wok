@@ -12,7 +12,7 @@
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <branch-name>master</branch-name>
+        <branch-name>maven-artifact</branch-name>
         <repository-name>wok-framework</repository-name>
         <repository-owner>burravlev</repository-owner>
     </properties>
