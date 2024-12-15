@@ -14,10 +14,37 @@ ___
 2. Add generated sources property
 ```xml
    <properties> 
-     <generatedSources>${project.build.directory}/generated-sources/java</generatedSources>
+     <generatedSources>${project.build.directory}/generated-sources</generatedSources>
    </properties>
 ```
-3. Create bean class annotated with @Component:
+3. Add build configuration to project
+```xml
+<build>
+    <plugins>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>3.13.0</version>
+            <configuration>
+                <generatedSourcesDirectory>${project.build.directory}/generated-sources/</generatedSourcesDirectory>
+                <annotationProcessors>
+                    <annotationProcessor>
+                        com.github.burravlev.processor.AnnotationProcessor
+                    </annotationProcessor>
+                </annotationProcessors>
+                <annotationProcessorPaths>
+                    <annotationProcessorPath>
+                        <groupId>com.github.burravlev</groupId>
+                        <artifactId>wok</artifactId>
+                        <version>0.0.2</version>
+                    </annotationProcessorPath>
+                </annotationProcessorPaths>
+            </configuration>
+        </plugin>
+    </plugins>
+</build>
+```
+4. Create bean class annotated with @Component:
 
 ```java 
 @Component
@@ -34,7 +61,7 @@ public class ExampleFactory {
     }
 }
 ```
-4. App run
+5. App run
 
 ```java
 @App
