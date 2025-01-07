@@ -2,6 +2,7 @@ package com.github.burravlev.datasource;
 
 import com.github.burravlev.annotation.Query;
 import com.github.burravlev.context.BeanNameExtractor;
+import lombok.Getter;
 
 import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.ExecutableElement;
@@ -13,6 +14,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class DatasourceDefinition {
+    @Getter
     private final TypeElement typeElement;
     private final List<ExecutableElement> markedMethods;
     private final String fqn;
@@ -26,20 +28,12 @@ public class DatasourceDefinition {
             .map(ExecutableElement.class::cast)
             .peek(el -> {
                 if (el.getAnnotation(Query.class) == null) {
-                    throw new IllegalStateException("All interface methods should be marked with @Query");
+                    throw new IllegalStateException("All interface's methods should be marked with @Query");
                 }
             })
             .collect(Collectors.toList());
         this.fqn = typeElement.getQualifiedName().toString();
         this.allFqn = extractAllFqn();
-    }
-
-    public void addMarkedMethod(ExecutableElement method) {
-        this.markedMethods.add(method);
-    }
-
-    public TypeElement getTypeElement() {
-        return typeElement;
     }
 
     public List<ExecutableElement> getMarkedMethods() {
