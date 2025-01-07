@@ -3,7 +3,6 @@ package com.github.burravlev.context;
 import com.github.burravlev.annotation.Value;
 import com.github.burravlev.util.PrimitiveUtil;
 import com.github.burravlev.util.PropertyReader;
-import com.squareup.javapoet.CodeBlock;
 
 import javax.lang.model.element.VariableElement;
 import javax.lang.model.type.TypeMirror;

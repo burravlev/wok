@@ -1,58 +1,48 @@
-# WOK 
+# WOK
+
 ___
 APT-based dependency injection for server-side applications
+
 ## Quick Start
+
 ___
-1. Add dependency 
-  ```xml
-   <dependency>
-     <groupId>com.github.burravlev</groupId>
-     <artifactId>wok</artifactId>
-     <version>1.0-SNAPSHOT</version>
-   </dependency>
-   ```
-2. Add generated sources property
+
+1. Add inject as a dependency.
+
 ```xml
-   <properties> 
-     <generatedSources>${project.build.directory}/generated-sources</generatedSources>
-   </properties>
+<dependency>
+    <groupId>com.github.burravlev</groupId>
+    <artifactId>inject</artifactId>
+    <version>0.0.3</version>
+</dependency>
 ```
-3. Add build configuration to project
+
+2. Add annotation-processor as a dependency with provided scope.
+
 ```xml
-<build>
-    <plugins>
-        <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-compiler-plugin</artifactId>
-            <version>3.13.0</version>
-            <configuration>
-                <generatedSourcesDirectory>${project.build.directory}/generated-sources/</generatedSourcesDirectory>
-                <annotationProcessors>
-                    <annotationProcessor>
-                        com.github.burravlev.processor.AnnotationProcessor
-                    </annotationProcessor>
-                </annotationProcessors>
-                <annotationProcessorPaths>
-                    <annotationProcessorPath>
-                        <groupId>com.github.burravlev</groupId>
-                        <artifactId>wok</artifactId>
-                        <version>0.0.2</version>
-                    </annotationProcessorPath>
-                </annotationProcessorPaths>
-            </configuration>
-        </plugin>
-    </plugins>
-</build>
+<dependency>
+    <groupId>com.github.burravlev</groupId>
+    <artifactId>annotation-processor</artifactId>
+    <version>0.0.3</version>
+    <scope>provided</scope>
+</dependency>
 ```
+
+3. Run ```mvn clean install```
+
 4. Create bean class annotated with @Component:
 
 ```java 
+
 @Component
 public class Example {
 }
 ```
+
 Example factory class:
+
 ```java
+
 @Factory
 public class ExampleFactory {
     @Bean
@@ -61,9 +51,11 @@ public class ExampleFactory {
     }
 }
 ```
+
 5. App run
 
 ```java
+
 @App
 public class Main {
     public static void main(String[] args) {

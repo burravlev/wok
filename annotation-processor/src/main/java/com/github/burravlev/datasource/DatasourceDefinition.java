@@ -2,7 +2,6 @@ package com.github.burravlev.datasource;
 
 import com.github.burravlev.annotation.Query;
 import com.github.burravlev.context.BeanNameExtractor;
-import com.squareup.javapoet.ClassName;
 
 import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.ExecutableElement;

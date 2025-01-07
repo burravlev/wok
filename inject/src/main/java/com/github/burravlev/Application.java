@@ -1,4 +1,4 @@
-package com.github.burravlev.context;
+package com.github.burravlev;
 
 import org.reflections.Reflections;
 import org.reflections.Store;

@@ -1,5 +1,6 @@
 package com.github.burravlev.context;
 
+import com.github.burravlev.ApplicationGraph;
 import com.squareup.javapoet.*;
 
 import javax.lang.model.element.Modifier;
