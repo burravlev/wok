@@ -4,7 +4,6 @@ import com.github.burravlev.context.ApplicationContextGenerator;
 import com.github.burravlev.context.BeanDefinition;
 import com.github.burravlev.context.BeanDefinitionReader;
 import com.github.burravlev.context.DependencyResolver;
-import com.github.burravlev.datasource.DatasourceProcessor;
 import com.github.burravlev.util.PropertyReader;
 import com.google.auto.service.AutoService;
 
@@ -39,11 +38,6 @@ public class AnnotationProcessor extends AbstractProcessor {
             return false;
         }
         PropertyReader.loadPropertySource(processingEnv.getFiler());
-
-        DatasourceProcessor datasourceProcessor = new DatasourceProcessor(
-            processingEnv, roundEnv
-        );
-        reader.addAll(datasourceProcessor.process());
 
         DependencyResolver dependencyResolver = new DependencyResolver(reader);
         dependencyResolver.resolve();
