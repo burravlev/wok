@@ -1,9 +1,10 @@
-# WOK
+# WOK Dependency Injection
 
 ___
-APT-based dependency injection for server-side applications
+Really simple APT-based dependency injection library written for learning purpose
 
 ## Quick Start
+[Download as maven dependency from GitHub packages](#github-packages)
 
 ___
 
@@ -83,4 +84,48 @@ public class Main {
         ApplicationGraph graph = Application.run(Main.class);
     }
 }
+```
+
+# GitHub packages
+Configure settings.xmx (replace username and password with your username and github token)
+
+[Docs](https://docs.github.com/ru/packages/working-with-a-github-packages-registry/working-with-the-apache-maven-registry)
+
+```xml
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0
+                      http://maven.apache.org/xsd/settings-1.0.0.xsd">
+
+    <activeProfiles>
+        <activeProfile>github</activeProfile>
+    </activeProfiles>
+
+    <profiles>
+        <profile>
+            <id>github</id>
+            <repositories>
+                <repository>
+                    <id>central</id>
+                    <url>https://repo1.maven.org/maven2</url>
+                </repository>
+                <repository>
+                    <id>github</id>
+                    <url>https://maven.pkg.github.com/burravlev/wok</url>
+                    <snapshots>
+                        <enabled>true</enabled>
+                    </snapshots>
+                </repository>
+            </repositories>
+        </profile>
+    </profiles>
+
+    <servers>
+        <server>
+            <id>github</id>
+            <username>{username}</username>
+            <password>{TOKEN}</password>
+        </server>
+    </servers>
+</settings>
 ```

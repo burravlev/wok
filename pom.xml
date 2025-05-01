@@ -24,7 +24,7 @@
 
     <distributionManagement>
         <repository>
-            <id>internal.repo</id>
+            <id>github</id>
             <name>GitHub Packages</name>
             <url>https://maven.pkg.github.com/burravlev/wok</url>
         </repository>
