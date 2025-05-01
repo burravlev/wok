@@ -8,7 +8,6 @@ APT-based dependency injection for server-side applications
 ___
 
 1. Add inject as a dependency.
-
 ```xml
 <dependency>
     <groupId>com.github.burravlev</groupId>
@@ -16,7 +15,6 @@ ___
     <version>0.0.3</version>
 </dependency>
 ```
-
 2. Add annotation-processor as a dependency with provided scope.
 
 ```xml
@@ -27,10 +25,33 @@ ___
     <scope>provided</scope>
 </dependency>
 ```
+3. Add maven compiler plugin with configured annotation processor
+```xml
+<build>
+    <plugins>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>3.12.1</version>
+            <configuration>
+                <source>17</source>
+                <target>17</target>
+                <encoding>UTF-8</encoding>
+                <generatedSourcesDirectory>${project.build.directory}/generated-sources/annotations</generatedSourcesDirectory>
+                <annotationProcessors>
+                    <annotationProcessor>
+                        com.github.burravlev.processor.AnnotationProcessor
+                    </annotationProcessor>
+                </annotationProcessors>
+            </configuration>
+        </plugin>
+    </plugins>
+</build>
+```
 
-3. Run ```mvn clean install```
+4. Run ```mvn clean install```
 
-4. Create bean class annotated with @Component:
+5. Create bean class annotated with @Component:
 
 ```java 
 
