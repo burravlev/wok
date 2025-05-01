@@ -6,7 +6,7 @@
     <parent>
         <groupId>com.github.burravlev</groupId>
         <artifactId>wok</artifactId>
-        <version>0.0.3</version>
+        <version>0.0.1</version>
     </parent>
 
     <artifactId>annotation-processor</artifactId>
@@ -21,10 +21,6 @@
         <dependency>
             <groupId>com.github.burravlev</groupId>
             <artifactId>inject</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.github.burravlev</groupId>
-            <artifactId>database</artifactId>
         </dependency>
 
         <dependency>

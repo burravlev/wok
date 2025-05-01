@@ -13,7 +13,7 @@ ___
 <dependency>
     <groupId>com.github.burravlev</groupId>
     <artifactId>inject</artifactId>
-    <version>0.0.3</version>
+    <version>0.0.1</version>
 </dependency>
 ```
 2. Add annotation-processor as a dependency with provided scope.
@@ -22,7 +22,7 @@ ___
 <dependency>
     <groupId>com.github.burravlev</groupId>
     <artifactId>annotation-processor</artifactId>
-    <version>0.0.3</version>
+    <version>0.0.1</version>
     <scope>provided</scope>
 </dependency>
 ```
