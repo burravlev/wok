@@ -11,6 +11,7 @@
     <modules>
         <module>annotation-processor</module>
         <module>inject</module>
+        <module>database</module>
         <module>testapp</module>
     </modules>
 
@@ -36,6 +37,11 @@
             <dependency>
                 <groupId>com.github.burravlev</groupId>
                 <artifactId>annotation-processor</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.burravlev</groupId>
+                <artifactId>database</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

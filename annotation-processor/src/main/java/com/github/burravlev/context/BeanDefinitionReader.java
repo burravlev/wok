@@ -22,6 +22,10 @@ public class BeanDefinitionReader {
         this.definitionsByFqn = parseDefinitionsFqn();
     }
 
+    public void addAll(List<BeanDefinition> definitions) {
+        this.definitions.addAll(definitions);
+    }
+
     private List<? extends BeanDefinition> loadSingletonDefinitions(RoundEnvironment roundEnv) {
         return roundEnv.getElementsAnnotatedWith(Component.class)
             .stream()

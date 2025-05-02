@@ -9,7 +9,7 @@
         <version>0.0.1</version>
     </parent>
 
-    <artifactId>annotation-processor</artifactId>
+    <artifactId>database</artifactId>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
@@ -19,31 +19,14 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.github.burravlev</groupId>
-            <artifactId>inject</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.github.burravlev</groupId>
-            <artifactId>database</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.squareup</groupId>
-            <artifactId>javapoet</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.reflections</groupId>
-            <artifactId>reflections</artifactId>
-        </dependency>
-        <dependency>
             <groupId>com.zaxxer</groupId>
             <artifactId>HikariCP</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <scope>test</scope>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.7.4</version>
         </dependency>
     </dependencies>
 </project>
