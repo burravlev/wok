@@ -5,9 +5,11 @@ import com.github.burravlev.context.BeanDefinition;
 import com.github.burravlev.context.BeanDefinitionReader;
 import com.github.burravlev.context.DependencyResolver;
 import com.github.burravlev.util.PropertyReader;
-import com.google.auto.service.AutoService;
 
-import javax.annotation.processing.*;
+import javax.annotation.processing.AbstractProcessor;
+import javax.annotation.processing.RoundEnvironment;
+import javax.annotation.processing.SupportedAnnotationTypes;
+import javax.annotation.processing.SupportedSourceVersion;
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.TypeElement;
 import javax.tools.Diagnostic;
@@ -16,7 +18,6 @@ import java.io.PrintWriter;
 import java.util.List;
 import java.util.Set;
 
-@AutoService(Processor.class)
 @SupportedAnnotationTypes({
     "com.github.burravlev.annotation.App",
     "com.github.burravlev.annotation.Bean",
